@@ -8,7 +8,7 @@
 #define DS1302_H_
 
 // Class representing a particular time and date.
-class Time {
+class nTime {
  public:
   enum Day {
     kSunday    = 1,
@@ -30,7 +30,7 @@ class Time {
   //   min: minutes. Range: {0, ..., 59}.
   //   sec: seconds. Range: {0, ..., 59}.
   //   day: day of the week. Sunday is 1. Range: {1, ..., 7}.
-  Time(uint16_t yr, uint8_t mon, uint8_t date,
+  nTime(uint16_t yr, uint8_t mon, uint8_t date,
        uint8_t hr, uint8_t min, uint8_t sec,
        Day day);
 
@@ -100,14 +100,14 @@ class DS1302 {
   uint8_t hour();
   uint8_t date();
   uint8_t month();
-  Time::Day day();
+  nTime::Day day();
   uint16_t year();
 
   // Returns the current time and date in a Time object.
   //
   // Returns:
   //   Current time as Time object.
-  Time time();
+  nTime time();
 
   // Individually sets pieces of the date and time.
   //
@@ -117,14 +117,14 @@ class DS1302 {
   void hour(uint8_t hr);
   void date(uint8_t date);
   void month(uint8_t mon);
-  void day(Time::Day day);
+  void day(nTime::Day day);
   void year(uint16_t yr);
 
   // Sets the time and date to the instant specified in a given Time object.
   //
   // Args:
   //   t: Time object to use
-  void time(Time t);
+  void time(nTime t);
 
 private:
   uint8_t ce_pin_;

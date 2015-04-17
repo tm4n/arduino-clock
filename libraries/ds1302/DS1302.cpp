@@ -5,7 +5,7 @@
 #endif
 #include "DS1302.h"
 
-Time::Time(const uint16_t yr, const uint8_t mon, const uint8_t date,
+nTime::nTime(const uint16_t yr, const uint8_t mon, const uint8_t date,
            const uint8_t hr, const uint8_t min, const uint8_t sec,
            const Day day) {
   this->yr   = yr;
@@ -149,16 +149,16 @@ uint8_t DS1302::month() {
   return registerBcdToDec(kMonthReg, 4);
 }
 
-Time::Day DS1302::day() {
-  return static_cast<Time::Day>(registerBcdToDec(kDayReg, 2));
+nTime::Day DS1302::day() {
+  return static_cast<nTime::Day>(registerBcdToDec(kDayReg, 2));
 }
 
 uint16_t DS1302::year() {
   return 2000 + registerBcdToDec(kYearReg);
 }
 
-Time DS1302::time() {
-  return Time(year(), month(), date(),
+nTime DS1302::time() {
+  return nTime(year(), month(), date(),
               hour(), minutes(), seconds(),
               day());
 }
@@ -184,7 +184,7 @@ void DS1302::month(const uint8_t mon) {
   registerDecToBcd(kMonthReg, mon, 4);
 }
 
-void DS1302::day(const Time::Day day) {
+void DS1302::day(const nTime::Day day) {
   registerDecToBcd(kDayReg, static_cast<int>(day), 2);
 }
 
@@ -193,7 +193,7 @@ void DS1302::year(uint16_t yr) {
   registerDecToBcd(kYearReg, yr);
 }
 
-void DS1302::time(const Time t) {
+void DS1302::time(const nTime t) {
   seconds(t.sec);
   minutes(t.min);
   hour(t.hr);

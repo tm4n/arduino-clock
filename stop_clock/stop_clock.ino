@@ -293,6 +293,8 @@ void settings()
 
 
 int8_t digitdata[4];
+boolean digipoint = false;
+int digicount = 0;
 
 void loop() {
   float h, t;
@@ -323,6 +325,16 @@ void loop() {
       // Display time since press
       time_t t = now();
       
+      // blink digital point
+      digicount++;
+      if (digicount > 10)
+      {
+        digicount = 0;
+        tm1637.point(digipoint);
+        digipoint = !digipoint;
+      }
+      
+      
       if (t < 60)
       if (t < 3600)
       {
@@ -333,7 +345,6 @@ void loop() {
         int s1 = ((int)second()) % 10;
         int s2 = (((int)second())/10) % 10;
         
-        tm1637.point(true);
         digitdata[0] = m2;
         digitdata[1] = m1; 
         digitdata[2] = s2;
@@ -349,7 +360,6 @@ void loop() {
         int m1 = ((int)minute()) % 10;
         int m2 = (((int)minute())/10) % 10;
         
-        tm1637.point(true);
         if (h2 == 0) digitdata[0] = 18; else digitdata[0] = h2;
         digitdata[1] = h1; 
         digitdata[2] = m2;
@@ -378,6 +388,8 @@ void loop() {
       else
      {
        mode = 0;
+       // freeze shortly
+       tm1637.point(true);
        delay(2000);
      }
       

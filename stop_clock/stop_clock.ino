@@ -335,7 +335,6 @@ void loop() {
       }
       
       
-      if (t < 60)
       if (t < 3600)
       {
         // display mins and secs
